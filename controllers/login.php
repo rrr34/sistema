@@ -2,10 +2,11 @@
 	class Login extends Controller{
 		private $nombre;
 		private $username;
+		
 		function __construct(){
 			parent::__construct();
-			
 		}
+
 		function render(){
 			$this->compruebaSesion();
 			if(isset($_SESSION['mensaje'])){

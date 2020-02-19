@@ -42,6 +42,7 @@
               <a class="dropdown-item" href="<?php echo constant('URL')?>colaboradores/nuevo">Colaborador</a>
               <a class="dropdown-item" href="<?php echo constant('URL')?>puestos/nuevo">Puesto</a>
               <a class="dropdown-item" href="<?php echo constant('URL')?>pilares/nuevo">PILARES</a>
+              <a class="dropdown-item" href="<?php echo constant('URL')?>brigadas/nuevo">Brigada 333</a>
             </div>
           </li>
           <li class="nav-item dropdown">
@@ -54,6 +55,7 @@
                <a class="dropdown-item" href="<?php echo constant('URL')?>organigramas">Organigrama</a>
                 <a class="dropdown-item" href="<?php echo constant('URL')?>honorarios">Honorarios</a>
                 <a class="dropdown-item" href="<?php echo constant('URL')?>pilares">Pilares y Responsables</a>
+                <a class="dropdown-item" href="<?php echo constant('URL')?>brigadas">Brigadas</a>
                           
           </li>
           <li class="nav-item dropdown">

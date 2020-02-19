@@ -1,5 +1,5 @@
 <?php 
-class Pilares extends Controller {
+class brigadas extends Controller {
 	function __construct(){
 
 			parent::__construct();
@@ -13,7 +13,7 @@ class Pilares extends Controller {
 				$this->mensajeAlerta();
 				unset( $_SESSION["mensaje"] );
 			}
-				$this->view->render('pilares/index');
+				$this->view->render('brigadas/index');
 			}else{
 			header('Location:'.constant('URL'));
 		}
@@ -26,19 +26,19 @@ class Pilares extends Controller {
 		//$colaboradores=$this->model->getColaboradores($id);	
 		
 		$this->view->id=$id;
-		$this->view->render('pilares/editar');
+		$this->view->render('brigadas/editar');
 	}
-	function editarPilar(){
+	function editarbrigada(){
 		$this->compruebaSesion(); 
-		$arrayPilares = $_POST;
+		$arrayBrigadas = $_POST;
 		$mensaje="";
-		if($this->model->update($arrayPilares)){
+		if($this->model->update($arrayBrigadas)){
 			$mensaje .="Dato Actualizado Correctamente";
 				}else{
 			$mensaje .="Fue imposible actualizar el registro";
 			}
 			$_SESSION['mensaje'] = $mensaje;
-		header('Location:'.constant('URL').'pilares');
+		header('Location:'.constant('URL').'brigadas');
 	}
 
 	function nuevo(){
@@ -48,7 +48,7 @@ class Pilares extends Controller {
 			$this->mensajeAlerta();
 			unset( $_SESSION["mensaje"] );
 		}
-		$this->view->render('pilares/nuevo');
+		$this->view->render('brigadas/nuevo');
 	}
 
 	function registrar(){
@@ -57,7 +57,7 @@ class Pilares extends Controller {
 		$arrayP=$_POST;
 		$mensaje="";
 
-			if($this->model->insertarPilares($arrayP)){
+			if($this->model->insertarBrigada($arrayP)){
 			$mensaje ="Dato Insertado Correctamente";
 			}else{
 			$mensaje ="Fue imposible insertar el registro";
@@ -65,7 +65,7 @@ class Pilares extends Controller {
 		
 		
 		$_SESSION['mensaje'] = $mensaje;
-		header('Location:'.constant('URL').'pilares/nuevo');
+		header('Location:'.constant('URL').'brigadas/nuevo');
 		
 	}
 
@@ -91,7 +91,7 @@ class Pilares extends Controller {
 			$mensaje .="Fue imposible eliminar el registro";
 		}
 		$_SESSION['mensaje'] = $mensaje;
-		header('Location:'.constant('URL').'pilares');
+		header('Location:'.constant('URL').'brigadas');
 	}
 
 	function compruebaSesion(){

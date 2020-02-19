@@ -1,10 +1,8 @@
 <?php 
-class PilaresModel extends Model{
-
+class BrigadasModel extends Model{
 	public function __construct(){
 		parent::__construct();
 	}
-
 	public function getDirectores(){
 		try{
 			$consulta=$this->db->connect()->prepare("SELECT id, CONCAT(nombre,' ',apellido_paterno,' ' , apellido_materno) as director from colaboradores");
@@ -17,7 +15,7 @@ class PilaresModel extends Model{
 	}
 	public function getDatosTabla(){
 		
-		try{$consulta =$this->db->connect()->prepare("SELECT pilares.id,cargos.puesto as sub, pilares.nombre,alcaldias.nombre as alcaldia, pilares.ubicacion, CONCAT(colaboradores.nombre,' ',colaboradores.apellido_paterno,' ' , colaboradores.apellido_materno) as director, status.estado as status, pilares.fecha from pilares left join cargo_alcaldia on pilares.alcaldia=cargo_alcaldia.alcaldia left join cargos on cargos.id=cargo_alcaldia.cargo left join alcaldias on pilares.alcaldia=alcaldias.id left join colaboradores on pilares.responsable=colaboradores.id left join status on pilares.estado=status.id");
+		try{$consulta =$this->db->connect()->prepare("SELECT brigadas.id,cargos.puesto as sub, brigadas.nombre,alcaldias.nombre as alcaldia, brigadas.ubicacion, CONCAT(colaboradores.nombre,' ',colaboradores.apellido_paterno,' ' , colaboradores.apellido_materno) as director, brigadas.fecha from brigadas left join cargo_alcaldia on brigadas.alcaldia=cargo_alcaldia.alcaldia left join cargos on cargos.id=cargo_alcaldia.cargo left join alcaldias on brigadas.alcaldia=alcaldias.id left join colaboradores on brigadas.responsable=colaboradores.id");
 			$consulta->execute();
 			return $consulta->fetchAll(PDO::FETCH_OBJ);
 		}catch(PDOException $e){
@@ -27,7 +25,7 @@ class PilaresModel extends Model{
 	}
 	public function getById($id){
 		
-		try{$consulta =$this->db->connect()->prepare("SELECT pilares.id,alcaldias.nombre as alcaldia,pilares.nombre,pilares.ubicacion,pilares.fecha,pilares.responsable, status.estado from pilares left join alcaldias on pilares.alcaldia=alcaldias.id left join status on pilares.estado=status.id WHERE pilares.id=:id
+		try{$consulta =$this->db->connect()->prepare("SELECT brigadas.id,alcaldias.nombre as alcaldia,brigadas.nombre,brigadas.ubicacion,brigadas.fecha,brigadas.responsable, status.estado from brigadas left join alcaldias on brigadas.alcaldia=alcaldias.id WHERE brigadas.id=:id
 			;");
 			$consulta->execute(['id' =>$id]);
 			return $consulta->fetchAll(PDO::FETCH_OBJ);
@@ -37,7 +35,7 @@ class PilaresModel extends Model{
 		}
 	}
 
-	public function getAlcaldias(){
+public function getAlcaldias(){
 		
 		try{$consulta =$this->db->connect()->prepare("SELECT * from alcaldias ;");
 			$consulta->execute();
@@ -47,7 +45,7 @@ class PilaresModel extends Model{
 			return false;
 		}
 	}
-	
+
 	public function getStatus(){
 		
 		try{$consulta =$this->db->connect()->prepare("SELECT * from status ;");
@@ -58,8 +56,9 @@ class PilaresModel extends Model{
 			return false;
 		}
 	}
+	
     
-    public function insertarPilares($datos){
+    public function insertarBrigada($datos){
     	try{
 			$consulta=$this->db->connect()->prepare('INSERT into pilares(nombre,responsable,alcaldia,ubicacion,fecha) values (:nombre,:responsable, :alcaldia, :ubicacion, :fecha)');
 			$consulta->execute([
@@ -67,8 +66,7 @@ class PilaresModel extends Model{
 			'responsable' =>$datos['responsable'],
 			'alcaldia'  =>$datos['alcaldia'],
 			'ubicacion' =>$datos['ubicacion'],
-			'fecha'     =>$datos['fecha'],
-			'estado'    =>$datos['estado']]);
+			'fecha'     =>$datos['fecha']]);
 			return true;
     	}catch(PDOException $e){
 			$controller->mensaje=$e->getMessage();
@@ -85,7 +83,6 @@ class PilaresModel extends Model{
 				alcaldia  =:alcaldia,
 				ubicacion =:ubicacion,
 				fecha     =:fecha,
-				estado	  =:estado,
 				responsable =:responsable WHERE id=:id");
 			$consulta->execute([
 			'nombre'    =>$datos['nombre'],
@@ -93,7 +90,6 @@ class PilaresModel extends Model{
 			'ubicacion' =>$datos['ubicacion'],
 			'fecha'     =>$datos['fecha'],
 			'responsable'     =>$datos['responsable'],
-			'estado'	=>$datos['estado'],
 			'id'        =>$datos['id']
 		]);
 			return true;
@@ -104,7 +100,7 @@ class PilaresModel extends Model{
 	}
 	public function borrar($id){
 		try{
-			$consulta=$this->db->connect()->prepare('DELETE FROM pilares WHERE id=:id');
+			$consulta=$this->db->connect()->prepare('DELETE FROM brigadas WHERE id=:id');
 			$consulta->execute([
 				'id'  =>$id]);
 			return true;
@@ -115,11 +111,11 @@ class PilaresModel extends Model{
 		}
 	}
 	
-	public function verificaExiste($pilares){
+	public function verificaExiste($brigadas){
 		try{
-			$consulta=$this->db->connect()->prepare('SELECT colaborador from directores where pilares=:pilares');
+			$consulta=$this->db->connect()->prepare('SELECT colaborador from directores where brigadas=:brigadas');
 			$consulta->execute([
-				'pilares'  =>$pilares]);
+				'brigadas'  =>$brigadas]);
 			return $consulta->fetchColumn();
 		}catch(PDOException $e){
 			//die();
@@ -127,10 +123,10 @@ class PilaresModel extends Model{
 			return false;
 		}
 	}
-	 public function borrarDirectores($pilares){
+	 public function borrarDirectores($brigadas){
     	try{
-    		$consulta=$this->db->connect()->prepare('DELETE from directores WHERE pilares=:pilares;');
-    		$consulta->execute(['pilares'=>$pilares]);
+    		$consulta=$this->db->connect()->prepare('DELETE from directores WHERE brigadas=:brigadas;');
+    		$consulta->execute(['brigadas'=>$brigadas]);
     		return true;
     	}catch(PDOException $e){
 			$controller->mensaje.=$e->getMessage();

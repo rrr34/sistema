@@ -6,35 +6,34 @@
 	class Principal extends Controller{
 
 		function __construct(){
-
 			parent::__construct();
 		}
 
 		public function render(){
             $this->compruebaSesion(); 
-          if (isset($_SESSION['usuario'])){
-            if(isset($_SESSION['mensaje'])){
-                $this->mensajeAlerta();
-                unset( $_SESSION["mensaje"] );
-            }  
-             $this->view->excel=false;
-             if (isset($_SESSION['datos'])){
-             $this->view->datos=$_SESSION['datos'];
-             }else{
-             $this->view->datos=$this->model->getDatosTabla();
-             }
-             if (isset($_SESSION['excel'])){
-             $this->view->excel=$_SESSION['excel'];
-             }
-             unset( $_SESSION["datos"] );
-             unset( $_SESSION["excel"] );
+            if (isset($_SESSION['usuario'])){
+                if(isset($_SESSION['mensaje'])){
+                    $this->mensajeAlerta();
+                    unset( $_SESSION["mensaje"] );
+                }  
+                $this->view->excel=false;
+                if (isset($_SESSION['datos'])){
+                    $this->view->datos=$_SESSION['datos'];
+                }else{
+                    $this->view->datos=$this->model->getDatosTabla();
+                }
+                if (isset($_SESSION['excel'])){
+                    $this->view->excel=$_SESSION['excel'];
+                }
+                unset( $_SESSION["datos"] );
+                unset( $_SESSION["excel"] );
 
-             $this->view->render('principal/index');
-         }
-             else{
-            header('Location:'.constant('URL'));
-        }
-	}
+                $this->view->render('principal/index');
+            }
+            else{
+                header('Location:'.constant('URL'));
+            }
+	    }
 
         function buscar(){
             $conditions = array();

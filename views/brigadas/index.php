@@ -4,7 +4,7 @@
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-5">
-						<h2 ><b>Listado Pilares</b></h2>
+						<h2 ><b>Listado Brigadas 333</b></h2>
 					</div>
 					<div class="col-sm-4"></div>
 					
@@ -23,14 +23,13 @@
 				<table class="table table-striped table-bordered table-sm"id="pilares" cellspacing="0" width="100%">
 				  <thead class="thead-secondary">
 				    <tr>
-				    <th scope="col">Subdirección</th>
-					<th scope="col">PILARES</th>
-					<th scope="col">Alcaldía</th>
-					<th scope="col">Ubicación</th>
-					<th scope="col">Responsable</th>
-					<th scope="col">Estado</th>
-					<th scope="col">Fecha de Operación</th>
-					<th scope="col">Acciones</th>
+				      <th scope="col">Subdirección</th>
+				      <th scope="col">Brigada</th>
+				      <th scope="col">Alcaldía</th>
+				      <th scope="col">Ubicación</th>
+				      <th scope="col">Responsable</th>
+				      <th scope="col">Fecha de Operación</th>
+				      <th scope="col">Acciones</th>
 				    </tr>
 				  </thead>
 				  <tbody>
@@ -43,7 +42,6 @@
 				                   echo '<td>' .$k->alcaldia.' </td>';
 				                   echo '<td>' .$k->ubicacion.' </td>';
 				                   echo '<td>' .$k->director.' </td>';
-				                   echo '<td>' .$k->status.' </td>';
 				                   echo '<td>' .$k->fecha.' </td>';
 				                   $this->id=$k->id;?>
 				                   <td> <a class="btn btn-warning  btn-sm" href="<?php constant('URL')?>pilares/editar/<?php echo $this->id?>" role="button"><i class="fas fa-edit"></i></a>
